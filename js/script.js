@@ -31,8 +31,21 @@ function getAge(birthDate) {
   return numYears - 1;
 }
 
+/**
+ * Returns the current year.
+ *
+ * @return Current year.
+ */
+function getCurrentYear() {
+  return new Date().getFullYear();
+}
+
 $(document).ready(() => {
   // Update the age text with Grant's current age
   const grantAge = getAge(GRANT_DATE_OF_BIRTH);
   $("#age").text(grantAge);
+
+  // Update the copyright text with the current year
+  const currYear = getCurrentYear();
+  $("#copyright-year").text(currYear);
 });
