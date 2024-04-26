@@ -1,36 +1,3 @@
-const GRANT_DATE_OF_BIRTH = "2001-03-27"; // Grant's date of birth
-
-/**
- * Returns a person's age in years.
- *
- * @param birthDate Date of birth formatted as a string.
- * @return The person's age.
- */
-function getAge(birthDate) {
-  // Create Date object using birthDate string
-  const dateOfBirth = new Date(birthDate);
-
-  // Create Date object representing the current date
-  const currDate = new Date();
-
-  // Fetch the difference in years between the dates
-  const numYears = currDate.getFullYear() - dateOfBirth.getFullYear();
-
-  // If the birthday has already occurred...
-  const currMonth = currDate.getMonth();
-  const dobMonth = dateOfBirth.getMonth();
-  if (
-    currMonth > dobMonth ||
-    (currMonth == dobMonth && currDate.getDate() > dateOfBirth.getDate())
-  ) {
-    // ...return the difference in years
-    return numYears;
-  }
-
-  // return the difference in years - 1
-  return numYears - 1;
-}
-
 /**
  * Returns the current year.
  *
@@ -40,12 +7,45 @@ function getCurrentYear() {
   return new Date().getFullYear();
 }
 
+/**
+ * Returns a person's age given a date string.
+ *
+ * @param dateOfBirth Date of birth string.
+ * @return Person's age.
+ */
+function getAge(dateOfBirth) {
+  // Create a Date object representing the current date
+  const currDate = new Date();
+  const currYear = currDate.getFullYear();
+  const currMonth = currDate.getMonth();
+  const currDayOfMonth = currDate.getDate();
+
+  // Create a Date object representing the date of birth
+  const birthDate = new Date(dateOfBirth);
+  const birthYear = birthDate.getFullYear();
+  const birthMonth = birthDate.getMonth();
+  const birthDayOfMonth = birthDate.getDate();
+
+  // Fetch the difference in years between the dates
+  const numYears = currYear - birthYear;
+
+  // If the birthday has already occurred...
+  if (
+    currMonth > birthMonth ||
+    (currMonth == birthMonth && currDayOfMonth >= birthDayOfMonth)
+  ) {
+    // ...return the difference in years
+    return numYears;
+  }
+
+  // Birthday hasn't occurred yet
+  return numYears - 1;
+}
+
 $(document).ready(() => {
-  // Update the age text with Grant's current age
-  const grantAge = getAge(GRANT_DATE_OF_BIRTH);
-  $("#age").text(grantAge);
+  // Update the displayed age with Grant's current age
+  $("#age").text(getAge("03-27-2001"));
 
   // Update the copyright text with the current year
-  const currYear = getCurrentYear();
-  $("#copyright-year").text(currYear);
+  $("#copyright-year").text(getCurrentYear());
 });
