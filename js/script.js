@@ -44,7 +44,7 @@ function getAge(dateOfBirth) {
 
 $(document).ready(() => {
   // Update the displayed age with Grant's current age
-  $("#age").text(getAge("03-27-2001"));
+  $("#age").text(getAge("2001-03-27"));
 
   // Update the copyright text with the current year
   $("#copyright-year").text(getCurrentYear());
